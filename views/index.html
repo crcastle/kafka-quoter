@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Cousine:400i|Averia+Libre:300i" rel="stylesheet">
+    <style>
+      body {
+        background: #ccc;
+      }
+
+      div.quote {
+        font-family: 'Averia Libre', cursive;
+        font-weight: 300;
+        font-style: italic;
+        font-size: 40px;
+        text-align: left;
+        line-height: 1.5em;
+        color: #444;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        margin-bottom: 10%;
+        padding: 0 5%;
+      }
+
+      footer.author {
+        font-family: 'Cousine', monospace;
+        font-weight: 400;
+        font-style: italic;
+        font-size: 50px;
+        color: #999;
+        text-align: right;
+        position: absolute;
+        bottom: 7%;
+        right: 10%;
+      }
+
+      .about {
+        text-align: center;
+      }
+
+      .about a {
+        text-decoration: none;
+        font-family: sans-serif;
+        color: #aaa;
+      }
+      .about a:link,
+      .about a:visited {
+
+      }
+
+      .about a:hover,
+      .about a:active {
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="about">
+      <a href="https://github.com/crcastle/kafka-quoter#readme">about</a>
+    </div>
+    <div class="quote">
+      <p>{{ quote }}</p>
+    </div>
+    <footer class="author">
+      <p>&mdash;Franz Kafka</p>
+    </footer>
+  </body>
+</html>

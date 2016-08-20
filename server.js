@@ -1,26 +1,70 @@
 'use strict';
 
 const Hapi = require('hapi');
+const Accept = require('accept');
 const fs = require('fs');
-const quotes = fs.readFileSync('kafka-quotes.txt').toString().split("\n");
-
+const quotes = fs.readFileSync('kafka-quotes.txt').toString().split("\n")
 const randomQuote = () => quotes[Math.floor(Math.random()*quotes.length)];
 
-// Create a server with a host and port
+/*
+ * Create server
+ *
+ */
 const server = new Hapi.Server();
 server.connection({
   port: process.env.PORT || 8000
 });
 
-// Add the route
+
+/*
+ * Add the routes and route handlers
+ *
+ */
+const textHandler = (request, reply) => {
+  return reply(randomQuote())
+          .type('text/plain');
+};
+
+const htmlHandler = (request, reply) => {
+  return reply.view('index', { quote: randomQuote() });
+}
+
 server.route({
   method: 'GET',
-  path:'/quote.txt',
-  handler: function (request, reply) {
+  path: '/{quote}.txt',
+  handler: textHandler
+});
 
-    return reply(randomQuote())
-            .type('text/plain');
+server.route({
+  method: 'GET',
+  path: '/{quote}.html',
+  handler: htmlHandler
+});
+
+server.route({
+  method: 'GET',
+  path: '/',
+  handler: function(request, reply) {
+    const mediaTypes = Accept.parseAll(request.headers).mediaTypes;
+    for (var i in mediaTypes) {
+      if (mediaTypes[i] == 'text/html') {
+        return htmlHandler(request, reply);
+      } else if (mediaTypes[i] == 'text/plain') {
+        return textHandler(request, reply);
+      }
+    }
+    return textHandler(request, reply);
   }
+});
+
+server.register(require('vision'), (err) => {
+  server.views({
+    engines: {
+      html: require('handlebars')
+    },
+    relativeTo: __dirname,
+    path: 'views'
+  });
 });
 
 // Start the server
