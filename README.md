@@ -1,14 +1,14 @@
 ## Get a random quote from your buddy [Franz](https://en.wikipedia.org/wiki/Franz_Kafka)
 
-`curl https://kafka-quoter.herokuapp.com`
+`curl http://kafkafra.nz`
 
 #### or even better (if you're on OS X, nay macOS)
 
-`curl https://kafka-quoter.herokuapp.com | say`
+`curl http://kafkafra.nz | say`
 
 #### or even better if you use [Apache Kafka on Heroku](https://www.heroku.com/kafka) and run the `heroku kafka:wait` command a lot
 
-`heroku kafka:wait; say $(curl https://kafka-quoter.herokuapp.com)`
+`heroku kafka:wait; say $(curl http://kafkafra.nz)`
 
 ![Franz Kafka](https://upload.wikimedia.org/wikipedia/commons/4/4c/Kafka1906_cropped.jpg)
 
